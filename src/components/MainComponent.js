@@ -7,6 +7,7 @@ import DonorLogin from './DonorLoginComponent'
 import Contact from './ContactComponent'
 import About from './AboutComponent'
 import Footer from './FooterComponent'
+import Dashboard from '../pages/Dashboard';
 
 class Main extends Component{
     render(){
@@ -19,6 +20,8 @@ class Main extends Component{
                     <Route exact path="/donorreg" component={()=><DonorLogin/>}/>
                     <Route exact path="/contactus" component={()=><Contact/>}/>
                     <Route exact path="/aboutus" component={()=><About/>}/>
+                    <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route path="/dashboard/:page" component={Dashboard}/>
                     {/* <Redirect to="/home" /> */}
                 </Switch>
                 <Footer/>
