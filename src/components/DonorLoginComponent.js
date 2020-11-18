@@ -29,8 +29,8 @@ class DonorLogin extends Component{
               <Input type="email" name="email" id="exampleEmail" placeholder="abc@something.com" />
             </FormGroup>
             <FormGroup>
-              <Label for="examplePassword">Password</Label>
-              <Input type="password" name="password" id="examplePassword" placeholder="something difficult" />
+              <Label for="examplePassword">Mobile Number</Label>
+              <Input type="tel" name="mobile" id="examplePassword" placeholder="123456789" />
             </FormGroup>
             <FormGroup>
               <Label for="exampleSelect">Blood group</Label>
