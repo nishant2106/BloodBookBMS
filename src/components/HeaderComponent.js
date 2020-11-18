@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import {
-    Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Jumbotron, Button,
+    Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Button,
     Modal, ModalHeader, ModalBody, FormGroup, Form, Label, Input
 } from 'reactstrap';
 import Auth from '../auth';
@@ -36,10 +36,8 @@ class Header extends Component{
         this.toggleModal();
         if( this.username.value.length > 4 && this.password.value.length > 2 ){
             auth.setUser(1);
-            notify.show("Welcome "+this.username.value, "success", 1000);
-            alert("Username: " + this.username.value + " Password: " + this.password.value
-            + " Remember: " + this.remember.checked);
             browserHistory.push("/dashboard")
+            window.location.reload(false);
         }else{
             notify.show("Invalid Email or Password", "error", 1000);
         }
@@ -94,18 +92,6 @@ class Header extends Component{
                         </Collapse>
                     </div>
                 </Navbar>
-                <Jumbotron>
-                    <div className="container">
-                        <div className="row row-header">
-                            <div className="col-12 col-sm-6">
-                                <h1>BloodBook Blood Bank</h1>
-                                <p>We take inspiration from the World's best health services,
-                                and create a great environment.
-                                “A single pint can save three lives, a single gesture can create a million smiles”</p>
-                            </div>
-                        </div>
-                    </div>
-                </Jumbotron>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
                     <ModalBody>
