@@ -120,8 +120,7 @@ YES                </Label>
             <FormGroup check>
               <Label check>
                 <Input type="checkbox" />{' '}
-                Check me out
-              </Label>
+Agree to the terms*              </Label>
             </FormGroup>
 
             <br></br>
