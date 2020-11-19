@@ -1,6 +1,7 @@
-
 import React,{Component} from 'react'
-import { FormGroup, Form, Label, Input,Col, Row,Button} from 'reactstrap';
+import { FormGroup, Form, Label, Input,Col,Button,Breadcrumb,BreadcrumbItem} from 'reactstrap';
+import { Link } from "react-router-dom";
+import JumbotronComponent from './JumbotronComponent'
 
 
 class DonorLogin extends Component{
@@ -15,8 +16,13 @@ class DonorLogin extends Component{
     
     render(){
         return(
-          
-            <div className="row row-content">
+          <React.Fragment>
+            <JumbotronComponent/>
+            <Breadcrumb>
+              <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+              <BreadcrumbItem active>Donor's Registration</BreadcrumbItem>
+          </Breadcrumb>
+          <div className="row row-content">
                
                <div className="col-6 offset-3">
             <Form className="form" >
@@ -80,13 +86,52 @@ YES                </Label>
             </FormGroup>
 
 
-            <Row form>
-        <Col md={6}>
-          <FormGroup>
-            <Label for="exampleCity">City</Label>
-            <Input type="text" name="city" id="exampleCity"/>
-          </FormGroup>
-        </Col>
+            <FormGroup>
+              <Label for="exampleDistrict">District</Label>
+              <Input type="select" name="select" id="exampleDistrict">
+              <option value="Select">-----Select-----</option>
+                <option value="Ahmednagar">    Ahmednagar </option>
+                <option value="Akola">Akola</option>
+                <option value="Amravati">Amravati</option>
+                <option value=" Aurangabad"> Aurangabad</option>
+                <option value=" Beed"> Beed</option>
+                <option value="  Bhandara">  Bhandara</option>
+                <option value="Buldhana">Buldhana</option>
+                <option value="Chandrapur">Chandrapur</option>
+                <option value="Dhule">Dhule</option>
+                <option value="Gadchiroli">Gadchiroli</option>
+                <option value="Gondia">Gondia</option>
+                <option value="Hingoli">Hingoli</option>
+    
+                <option value="Jalgaon">Jalgaon</option>
+                <option value="Jalna">Jalna</option>
+                <option value="Kolhapur">Kolhapur</option>
+                <option value="Latur">Latur</option>
+                <option value="Mumbai City">Mumbai City</option>
+                <option value=" Mumbai Suburban"> Mumbai Suburban</option>
+             <option value=" Nagpur"> Nagpur</option>
+                <option value="Nanded">Nanded</option>
+                <option value="Kolhapur">Kolhapur</option>
+                <option value="Nandurbar">Nandurbar</option> 
+            <option value="Nashik">Nashik</option>
+                <option value="Palghar">Palghar</option>
+                <option value="Parbhani">Parbhani</option>
+                <option value="Pune">Pune</option>
+             <option value="Raigad">Raigad</option>
+                <option value="Jalna">Jalna</option>
+                <option value="Kolhapur">Kolhapur</option>
+                <option value="Ratnagiri">Ratnagiri</option>
+                <option value="Sangli">Sangli</option>
+                <option value=" Satara"> Satara</option>
+             <option value="Sindhudurg">Sindhudurg</option>
+                <option value="Solapur">Solapur</option>
+                <option value="Thane">Thane</option>
+                <option value="Wardha">Wardha</option>
+                <option value="Washim">Washim</option>
+                <option value="Yavatmal"> Yavatmal</option>
+
+              </Input>
+            </FormGroup>
         
         <Col md={2}>
           <FormGroup>
@@ -94,7 +139,6 @@ YES                </Label>
             <Input type="postal" name="zip" id="exampleZip"/>
           </FormGroup>  
         </Col>
-      </Row>
           
             <FormGroup tag="fieldset">
               <legend>Gender</legend>
@@ -130,6 +174,7 @@ Agree to the terms*              </Label>
           </div>
    
           </div>
+          </React.Fragment>
         )    
     }
 }
