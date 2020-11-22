@@ -19,7 +19,6 @@ import Transfer from '../pages/Transfer/Transfer';
 import DashBoard from '../pages/Dashboard';
 import Storage from "../pages/Storage/Storage";
 import RequestUser from "../pages/RequestUser/RequestUser";
-import NavBarComponent from "../pages/SideNav";
 
 class Main extends Component{
     render(){
