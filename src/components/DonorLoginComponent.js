@@ -23,7 +23,6 @@ class DonorLogin extends Component {
   }
   createDonor(e) {
     e.preventDefault()
-    console.log(this.state)
     const newDon={
     'aadhar': this.state.aadhar,
     'name': this.state.name,
