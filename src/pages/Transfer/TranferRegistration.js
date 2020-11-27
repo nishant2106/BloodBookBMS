@@ -53,7 +53,6 @@ class TransferRegistration extends Component {
         let options = this.state.hospitals.map(function (city) {
             return { value: city.h_id, label: city.name };
           })
-        const {h_id}=this.state
         return (
             <div className="row row-content">
                 <ToastContainer position="top-right"
@@ -73,7 +72,7 @@ class TransferRegistration extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="hospital" md={2}>Hospitals</Label>
                                 <Col md={10}> 
-                                    <Select options={options} value={h_id} 
+                                    <Select options={options}
                                     onChange={
                                         (e) => {
                                             this.setState({ h_id: e.value })
