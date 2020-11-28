@@ -2,8 +2,6 @@ import React,{ Component } from "react";
 import { Row,Label,Col,Button,Input ,Form, FormGroup} from "reactstrap";
 import http from '../common'
 import Notification,{ notify } from "react-notify-toast";
-import validator from 'email-validator';
-import { Textarea } from "react-materialize";
 
 
 

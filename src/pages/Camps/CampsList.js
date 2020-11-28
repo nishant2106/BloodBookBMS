@@ -3,41 +3,41 @@ import { Table } from "reactstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-class NurseList extends Component{
+class CampsList extends Component{
     constructor(props){
         super(props)
         this.state={
-            Nurses:[],
+            Camp:[],
             isLoaded:false
         }
     }
     async componentDidMount(){
-        const url="http://localhost:3001/Nurse"
+        const url="http://localhost:3001/Camps"
         const response = await fetch(url)
         const data = await response.json()
         if(data.length>0){
-            this.setState({Nurses:data})
+            this.setState({Camp:data})
             this.setState({isLoaded:true})
             toast.success('Data is Fetched SuccessFully.')
         }
         else
             toast.error('No Data to Display')
     }
+
     showList(){
-        let data = this.state.Nurses
+        let data = this.state.Camp
         let rows=[]
+        console.log(data)
         if(this.state.isLoaded){
             for (let index = 0; index < data.length; index++) {
-                let date = new Date(data[index].join_date)
-                let id=data[index].nurse_id
+                let date = new Date(data[index].c_date)
                 rows.push(
-                    <tr key={id}>
-                        <td>{data[index].nurse_id}</td>
+                    <tr>
+                        <td>{data[index].camp_id}</td>
                         <td>{data[index].name}</td>
-                        <td>{data[index].gender}</td>
-                        <td>{data[index].city}</td>
+                        <td>{data[index].location}</td>
                         <td>{data[index].mob_no}</td>
-                        <td>{data[index].email}</td>
+                        <td>{data[index].createdon}</td>
                         <td>{date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()}</td>
                     </tr>
                 ) 
@@ -61,13 +61,12 @@ class NurseList extends Component{
                     
                     <thead>
                         <tr>
-                            <th data-field="NID">NurseID</th>
+                            <th data-field="CID">Camp_ID</th>
                             <th data-field="name">Name</th>
-                            <th data-field="gender">Gender</th>
                             <th data-field="location">Location</th>
                             <th data-field="phone">Phone</th>
-                            <th data-field="Email">Email</th>
-                            <th data-field="date">Join Date</th>
+                           <th data-field="donation_amt">Donation_amount</th>
+                            <th data-field="date">Camp Date</th>
                         </tr>
                     </thead>
                     <tbody>{this.showList()}</tbody>
@@ -77,4 +76,4 @@ class NurseList extends Component{
     }
 }
 
-export default NurseList;
+export default CampsList;

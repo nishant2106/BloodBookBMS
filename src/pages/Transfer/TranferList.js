@@ -31,7 +31,7 @@ class TransferList extends Component{
             for (let index = 0; index < data.length; index++) {
                 let date = new Date(data[index].t_date)
                 rows.push(
-                    <tr>
+                    <tr key={data[index].t_id}>
                         <td>{data[index].t_id}</td>
                         <td>{data[index].h_id}</td>
                         <td>{data[index].name}</td>

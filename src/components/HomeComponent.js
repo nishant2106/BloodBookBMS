@@ -21,7 +21,7 @@ class Home extends Component {
                     }
                     </Zoom>
                 </div>
-                <div classname="container">
+                <div className="container">
                     <div className="row">
                         <div className="col-12 offset-sm-2 col-sm-4" style={{ marginTop: "50px" }}>
                             <img className="img-responsive" src="assets/info.png" alt="about nbtc" title="" style={{ width: '300px', marginLeft: '80px' }} />

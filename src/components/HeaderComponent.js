@@ -3,12 +3,12 @@ import {
     Navbar, NavbarBrand, Nav, NavbarToggler, Collapse, NavItem, Button,
     Modal, ModalHeader, ModalBody, FormGroup, Form, Label, Input
 } from 'reactstrap';
-import Auth from '../auth';
 import { NavLink } from 'react-router-dom';
-import Notifications, {notify} from 'react-notify-toast';
 import {browserHistory} from 'react-router'
+import http from '../shared/common'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-let auth = new Auth();
 class Header extends Component{
     constructor(props) {
         super(props);
@@ -34,12 +34,27 @@ class Header extends Component{
     }
     handleLogin(event) {
         this.toggleModal();
-        if( this.username.value.length > 4 && this.password.value.length > 2 ){
-            auth.setUser(1);
-            browserHistory.push("/dashboard")
-            window.location.reload(false);
+        if( this.username.value.length > 1 && this.password.value.length > 1 ){
+            http.post('auth',{
+                'username': this.username.value,
+                'password':this.password.value
+            })
+            .then(response=>{
+                if(response.status===200){
+                    toast.success('Successfully logged in.')
+                    browserHistory.push("/dashboard")
+                    window.location.reload(false);
+                }
+                else if(response.status===401){
+                    toast.error("Invalid Email or Password");
+                    window.location.reload(false);
+                }
+            })
+            .catch(error=>{
+                console.log(error)
+            })
         }else{
-            notify.show("Invalid Email or Password", "error", 1000);
+            toast.error("Invalid Email or Password");
         }
         event.preventDefault();
 
@@ -47,9 +62,17 @@ class Header extends Component{
     render(){
         return(
             <React.Fragment>
+                <ToastContainer position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
                 <Navbar dark expand="md">
                     <div className="container">
-                        <Notifications />
                         <NavbarToggler onClick={this.toggleNav} />
                         <NavbarBrand className="mr-auto" href="/">
                             <img src='assets/logo.png' height="30" width="41" alt='Ristorante Con Fusion' />
