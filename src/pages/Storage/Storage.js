@@ -30,6 +30,7 @@ class Storage extends Component{
             for (let index = 0; index < data.length; index++) {
                 rows.push(
                     <tr key={data[index].component_name}>
+                        <td>{data[index].component_name}</td>
                         <td>{data[index].O_pos}</td>
                         <td>{data[index].O_neg}</td>
                         <td>{data[index].A_pos}</td>
@@ -56,9 +57,12 @@ class Storage extends Component{
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover/>
-                <Table className="stripped">
+                <div className="row">
+                    &nbsp;
+                </div>
+                <Table className="table table-striped table-bordered">
                     
-                    <thead>
+                    <thead className="thead-dark">
                         <tr>
                             <th data-field="component">Component</th>
                             <th data-field="ap">A+</th>
@@ -69,7 +73,6 @@ class Storage extends Component{
                             <th data-field="abn">AB-</th>
                             <th data-field="op">O+</th>
                             <th data-field="o_n">O-</th>
-                            <th data-field="total">Total</th>
                         </tr>
                     </thead>
                     <tbody>{this.showList()}</tbody>

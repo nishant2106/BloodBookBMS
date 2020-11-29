@@ -4,15 +4,6 @@ import http from '../common'
 import Notification,{ notify } from "react-notify-toast";
 
 
-
-const hstyle = {
-    'display' : 'none'
-}
-
-const vstyle = {
-    'display' : 'block'
-}
-
 class NurseRegistration extends Component{
     constructor(props){
         super(props);

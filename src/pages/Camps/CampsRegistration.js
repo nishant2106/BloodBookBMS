@@ -112,7 +112,7 @@ class CampsRegistration extends Component{
                                             className="form-control"
                                             onChange={
                                                 (e) => {
-                                                    this.setState({ address : e.target.value })
+                                                    this.setState({ donationamt : e.target.value })
                                                 }
                                             }
                                         />

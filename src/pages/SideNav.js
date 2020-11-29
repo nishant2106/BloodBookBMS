@@ -84,14 +84,6 @@ class NavBarComponent extends Component {
                             DASHBOARD
                             </NavText>
                         </NavItem>
-                        <NavItem eventKey="announcements">
-                            <NavIcon>
-                                <i className="fa fa-fw fa-bullhorn" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
-                            </NavIcon>
-                            <NavText style={{ paddingRight: 32 ,color:"#333"}} title="ANNOUNCEMENTS">
-                                ANNOUNCEMENTS
-                            </NavText>
-                        </NavItem>
                         <NavItem eventKey="donors">
                             <NavIcon>
                                 <i className="fa fa-fw fa-heartbeat" style={{ fontSize: '1.75em', verticalAlign: 'middle' }} />
@@ -162,14 +154,6 @@ class NavBarComponent extends Component {
                             </NavIcon>
                             <NavText style={{ paddingRight: 32 ,color:"#333"}} title="CAMPAIGNS">
                             CAMPAIGNS
-                            </NavText>
-                        </NavItem>
-                        <NavItem eventKey="setting">
-                            <NavIcon>
-                                <i className="fa fa-fw fa-cogs" style={{ fontSize: '1.5em' }} />
-                            </NavIcon>
-                            <NavText style={{ paddingRight: 32 ,color:"#333"}} title="SETTINGS">
-                                SETTINGS
                             </NavText>
                         </NavItem>
                         {/* <NavItem eventKey="settings">
