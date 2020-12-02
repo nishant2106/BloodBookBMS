@@ -3,7 +3,8 @@ import { FormGroup, Form, Label, Input, Col, Button, Breadcrumb, BreadcrumbItem 
 import { Link } from "react-router-dom";
 import JumbotronComponent from './JumbotronComponent'
 import http from '../shared/common'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class DonorLogin extends Component {
   constructor(props) {
@@ -36,17 +37,27 @@ class DonorLogin extends Component {
     'pincode': this.state.pincode
     }
     http.post('donors',{newDon})
-      .then(response=>{
-        console.log(response)
-      })
+    .then(response=>{
+        toast.success('Registration Successfull')
+        this.props.closeCallBack();
+    })
       .catch(error=>{
-        console.log(error)
+        toast.error('Registration Unsuccessful.')
       })
   };
 
   render() {
     return (
       <React.Fragment>
+        <ToastContainer position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
         <JumbotronComponent />
         <Breadcrumb>
           <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
@@ -55,6 +66,8 @@ class DonorLogin extends Component {
         <div className="row row-content">
 
           <div className="col-6 offset-3">
+          <h3>Donor Registration</h3>
+                    <hr/>
             <Form className="form" >
               <FormGroup>
                 <Label for="Name">Name</Label>

@@ -32,11 +32,11 @@ class DashBoard extends Component{
                 'color':this.state.color
             })
             .then(()=>{
-                window.location.reload(false);
                 toast.success('Event Added Successfully.')
+                window.location.reload(false);
             })
             .catch(error=>{
-                console.log(error)
+                toast.error('Operation Failed.')
             })
         }  
         else{

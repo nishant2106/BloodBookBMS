@@ -1,7 +1,8 @@
 import React,{ Component } from "react";
 import { Row,Label,Col,Button,Input ,Form} from "reactstrap";
 import http from '../common'
-import Notification,{ notify } from "react-notify-toast";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class HospitalRegistration extends Component{
     constructor(props){
@@ -28,18 +29,26 @@ class HospitalRegistration extends Component{
         }
         http.post('Hospital',{newHospital})
         .then(response=>{
-            console.log(response)
-            notify.show('Hospital Added.','success',300)
+            toast.success('Registration Successfull')
+            this.props.closeCallBack();
         })
         .catch(error=>{
-            console.log(error)
+            toast.error('Registration Unsuccessful.')
         })
     }
     render(){
         return(
             <div className="container">
             <div className="row row-content">
-                <Notification/>
+            <ToastContainer position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
                 <div className="col-12 offset-1">
                     <h3>Hospital Registration</h3>
                     <hr/>
