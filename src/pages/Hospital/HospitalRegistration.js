@@ -29,8 +29,12 @@ class HospitalRegistration extends Component{
         }
         http.post('Hospital',{newHospital})
         .then(response=>{
+            if(response.status===200){
             toast.success('Registration Successfull')
             this.props.closeCallBack();
+            }else{
+                toast.error('Operation Unsuccessful')
+            }
         })
         .catch(error=>{
             toast.error('Registration Unsuccessful.')

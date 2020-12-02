@@ -12,7 +12,6 @@ class HospitalEdit extends Component{
             isLoaded    : false,
             hospital       : {},
             h_id         : this.props.h_id,
-            name       : '',
             mob_no      : '',
             district    :  '',
             city: '',
@@ -25,7 +24,6 @@ class HospitalEdit extends Component{
                 let hospital = response.data;
                 this.setState({ isLoaded : true, 
                     hospital : hospital[0],
-                    name   : hospital[0].name,
                     mob_no   : hospital[0].mob_no,
                     district: hospital[0].district,
                     pincode : hospital[0].pincode,
@@ -41,7 +39,6 @@ class HospitalEdit extends Component{
     }
     handleDelete(){
         if(this.props.h_id){
-            alert('dsnn')
             http.delete('hospital/'+this.state.h_id, {}).then((response) => {
                 if(response.status === 200){
                     toast.info('removed from register');
@@ -59,7 +56,6 @@ class HospitalEdit extends Component{
     handleUpdate(){
         if(this.props.h_id){
             http.post('hospital/'+this.state.h_id, {
-                'name':this.state.name,
                 'mob_no':this.state.mob_no,
                 'address':this.state.city,
                 'district':this.state.district,
@@ -83,22 +79,6 @@ class HospitalEdit extends Component{
             <div className="col-md-6">
                 <hr/>
                 <Form>
-                <Row className="form-group">
-                        <Label htmlFor="name" md={2}>Name</Label>
-                        <Col md={10}>
-                            <Input type="name"  id="name" name="name"
-                                label="name"
-                                placeholder="name"
-                                className="form-control"
-                                defaultValue={ this.state.hospital.name }
-                                onChange={
-                                    (e) => {
-                                        this.setState({name:e.target.value});
-                                    }
-                                }
-                            />
-                        </Col>
-                    </Row>
                     {/* <div style={this.getStyles()}> */}
                     <Row className="form-group">
                         <Label for="exampleDistrict" md={2}>District</Label>

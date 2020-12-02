@@ -1,49 +1,73 @@
 import React, { Component } from 'react'
-import { FormGroup, Form, Label, Input, Col, Button, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { FormGroup, Form, Label, Input,  Button, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from "react-router-dom";
 import JumbotronComponent from './JumbotronComponent'
 import http from '../shared/common'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ReactFormInputValidation from "react-form-input-validation";
 
 class DonorLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      aadhar: '',
-      name: '',
-      email: '',
-      mobile: '',
       gender: '',
+      district: '',
       blood: '',
       plasma: '',
-      address: '',
-      district: '',
-      pincode: ''
+      fields: {
+        aadhar: '',
+        name: '',
+        email: '',
+        mobile: '',
+        address: '',
+        pincode: ''
+      },
+      errors: {}
     }
+    this.form = new ReactFormInputValidation(this);
+    this.form.useRules({
+        name: "required",
+        email: "required|email",
+        mobile: "required|numeric|digits_between:10,12",
+        aadhar: "required|numeric|digits_between:12,12",
+        address: 'required',
+        pincode: "required|numeric|digits_between:6,6"
+    });
   }
   createDonor(e) {
-    e.preventDefault()
-    const newDon={
-    'aadhar': this.state.aadhar,
-    'name': this.state.name,
-    'email': this.state.email,
-    'mobile': this.state.mobile,
-    'gender': this.state.gender,
-    'blood': this.state.blood,
-    'plasma': this.state.plasma,
-    'address': this.state.address,
-    'district': this.state.district,
-    'pincode': this.state.pincode
-    }
-    http.post('donors',{newDon})
-    .then(response=>{
-        toast.success('Registration Successfull')
-        this.props.closeCallBack();
-    })
-      .catch(error=>{
-        toast.error('Registration Unsuccessful.')
+    if(this.state.fields.aadhar && this.state.fields.name && this.state.fields.email && 
+      this.state.fields.mobile && this.state.gender && this.state.blood && 
+      this.state.plasma && this.state.fields.address && this.state.district && 
+      this.state.fields.pincode){
+      e.preventDefault()
+      const newDon={
+      'aadhar': this.state.fields.aadhar,
+      'name': this.state.fields.name,
+      'email': this.state.fields.email,
+      'mobile': this.state.fields.mobile,
+      'gender': this.state.gender,
+      'blood': this.state.blood,
+      'plasma': this.state.plasma,
+      'address': this.state.fields.address,
+      'district': this.state.district,
+      'pincode': this.state.fields.pincode
+      }
+      http.post('donors',{newDon})
+      .then(response=>{
+        if(response.status===200){
+          toast.success('Registration Successfull')
+          this.props.closeCallBack();
+        }else{
+          toast.error('Registration Unsuccessful.')
+        }
       })
+      .catch(error=>{
+        console.log(error)
+      })
+    }else{
+      toast.error('Fill all the deatils Properly')
+    }
   };
 
   render() {
@@ -72,58 +96,64 @@ class DonorLogin extends Component {
               <FormGroup>
                 <Label for="Name">Name</Label>
                 <Input type="text" name="name" id="name"
-                  onChange={
-                    (event) => {
-                      this.setState({ name: event.target.value });
-                    }
-                  }
-                  placeholder="Amy santiago" />
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.name}
+                  placeholder="First Name + Last Name" />
+                <Label className="error">
+                  {this.state.errors.name ? this.state.errors.name : ""}
+                </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="aadhar">Aadhar Number</Label>
                 <Input type="text" name="aadhar" id="aadhar"
-                  onChange={
-                    (event) => {
-                      this.setState({ aadhar: event.target.value });
-                    }
-                  }
-                  placeholder="Aadhar Number" />
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.aadhar}
+                  placeholder="Enter Aadhar Number" />
+                <Label className="error">
+                  {this.state.errors.aadhar ? this.state.errors.aadhar : ""}
+                </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleEmail">Email</Label>
                 <Input type="email" name="email" id="exampleEmail"
-                  onChange={
-                    (event) => {
-                      this.setState({ email: event.target.value });
-                    }
-                  }
-                  placeholder="abc@something.com" />
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.email}
+                  placeholder="Enter Email Id" />
+                <Label className="error">
+                  {this.state.errors.email ? this.state.errors.email : ""}
+                </Label>
               </FormGroup>
               <FormGroup>
-                <Label for="examplePassword">Mobile Number</Label>
-                <Input type="tel" name="mobile" id="exampleMobile"
-                  onChange={
-                    (event) => {
-                      this.setState({ mobile: event.target.value });
-                    }
-                  } placeholder="123456789" />
+                <Label for="mobile">Mobile Number</Label>
+                <Input type="tel" name="mobile" id="mobile"
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.mobile}
+                  placeholder="Enter Mobile No" />
+                <Label className="error">
+                  {this.state.errors.mobile ? this.state.errors.mobile : ""}
+                </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleSelect">Blood group</Label>
-                <Input type="select" name="select" id="exampleSelect" onChange={
-                  (event) => {
-                    this.setState({ blood: event.target.value });
-                  }
-                }>
+                <Input type="select" name="select" id="exampleSelect" 
+                  onChange={
+                    (event) => {
+                      this.setState({ blood: event.target.value });
+                    }
+                  }>
                   <option value="Select">-----Select-----</option>
-                  <option value="A+">A+</option>
-                  <option value="A-">A-</option>
-                  <option value="B+">B+</option>
-                  <option value="B-">B-</option>
-                  <option value="AB+">AB+</option>
-                  <option value="AB-">AB-</option>
-                  <option value="O+">O+</option>
-                  <option value="O-">O-</option>
+                  <option value="A_pos">A+</option>
+                  <option value="A_neg">A-</option>
+                  <option value="B_pos">B+</option>
+                  <option value="B_neg">B-</option>
+                  <option value="AB_pos">AB+</option>
+                  <option value="AB_neg">AB-</option>
+                  <option value="O_pos">O+</option>
+                  <option value="O_neg">O-</option>
 
                 </Input>
               </FormGroup>
@@ -151,23 +181,24 @@ class DonorLogin extends Component {
               </FormGroup>
 
               <FormGroup>
-                <Label for="exampleText">Address</Label>
-                <Input type="textarea" name="text" id="exampleText" onChange={
-                  (event) => {
-                    this.setState({ address: event.target.value });
-                  }
-                } />
-
+                <Label for="address">Address</Label>
+                <Input type="textarea" name="address" id="address" 
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.address} />
+                <Label className="error">
+                  {this.state.errors.address ? this.state.errors.address : ""}
+                </Label>
               </FormGroup>
-
 
               <FormGroup>
                 <Label for="exampleDistrict">District</Label>
-                <Input type="select" name="select" id="exampleDistrict" onChange={
-                  (event) => {
-                    this.setState({ district: event.target.value });
-                  }
-                }>
+                <Input type="select" name="select" id="exampleDistrict" 
+                  onChange={
+                    (event) => {
+                      this.setState({ district: event.target.value });
+                    }
+                  }>
                   <option value="Select">-----Select-----</option>
                   <option value="Ahmednagar">    Ahmednagar </option>
                   <option value="Akola">Akola</option>
@@ -212,17 +243,16 @@ class DonorLogin extends Component {
                 </Input>
               </FormGroup>
 
-              <Col md={2}>
-                <FormGroup>
-                  <Label for="exampleZip">Pincode</Label>
-                  <Input type="postal" name="zip" id="exampleZip" 
-                  onChange={
-                    (event) => {
-                      this.setState({ pincode: event.target.value });
-                    }
-                  } />
-                </FormGroup>
-              </Col>
+              <FormGroup>
+                <Label for="pincode">Pincode</Label>
+                <Input type="number" name="pincode" id="pincode" 
+                onBlur={this.form.handleBlurEvent}
+                onChange={this.form.handleChangeEvent}
+                value={this.state.fields.pincode} />
+                <Label className="error">
+                  {this.state.errors.pincode ? this.state.errors.pincode : ""}
+                </Label>
+              </FormGroup>
 
               <FormGroup tag="fieldset">
                 <legend>Gender</legend>

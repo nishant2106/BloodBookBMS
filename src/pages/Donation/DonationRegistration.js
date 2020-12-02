@@ -52,6 +52,7 @@ class DonationRegistration extends Component{
             toast.info('Donation Added.')
         })
         .catch(error=>{
+            toast.error('Operation Failed.')
             console.log(error)
         })
     }
