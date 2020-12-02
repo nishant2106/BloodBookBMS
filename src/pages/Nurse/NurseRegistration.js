@@ -1,7 +1,10 @@
 import React,{ Component } from "react";
 import { Row,Label,Col,Button,Input ,Form, FormGroup} from "reactstrap";
-import http from '../common'
-import Notification,{ notify } from "react-notify-toast";
+import http from '../../shared/common';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 
 class NurseRegistration extends Component{
@@ -60,7 +63,7 @@ class NurseRegistration extends Component{
         http.post('nurse',{newNurse})
         .then(response=>{
             console.log(response)
-            notify.show('Nurse Added.','success',300)
+            toast.success('Nurse Added Successfully.')
         })
         .catch(error=>{
             console.log(error)
@@ -69,7 +72,15 @@ class NurseRegistration extends Component{
     render(){
         return(
             <div className="row row-content">
-                <Notification/>
+                <ToastContainer position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
                 <div className="col-12 offset-1">
                     <h3>Nurse Registration</h3>
                     <hr/>

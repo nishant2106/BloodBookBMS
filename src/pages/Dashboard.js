@@ -6,6 +6,8 @@ import listPlugin from "@fullcalendar/list";
 import { Button,Modal, ModalHeader, ModalBody, FormGroup, Form, Label, Input
 } from 'reactstrap';
 import http from '.././shared/common'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class DashBoard extends Component{
     constructor(props) {
@@ -29,11 +31,18 @@ class DashBoard extends Component{
                 'date':this.state.date,
                 'color':this.state.color
             })
-            .then(response=>{console.log(response)})
+            .then(()=>{
+                window.location.reload(false);
+                toast.success('Event Added Successfully.')
+            })
             .catch(error=>{
                 console.log(error)
             })
-        }   
+        }  
+        else{
+            toast.error("Title can not be blank");
+        } 
+        window.location.reload(false);
         event.preventDefault();
 
     }
@@ -44,12 +53,20 @@ class DashBoard extends Component{
     }
     handleDateClick = (arg) => { // bind with an arrow function
         this.toggleModal();
-        console.log(arg.dateStr)
         this.setState({date:arg.dateStr})
     }
     render(){
         return(
             <div>
+                <ToastContainer position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover/>
                 <FullCalendar
                     plugins={[ dayGridPlugin,interactionPlugin,listPlugin ]}
                     headerToolbar={{

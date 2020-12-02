@@ -37,11 +37,9 @@ class Nurse extends Component{
       }
 
     editCallBack = (nid) =>{
-        if(this.state.isClicked){
-            this.setState((prevState, props) => {
-                return { screenId: 2, nid: nid}
-            });
-        }
+        this.setState((prevState, props) => {
+            return { screenId: 2, nid: nid}
+        });
     }
 
     closeCallBack = () => {

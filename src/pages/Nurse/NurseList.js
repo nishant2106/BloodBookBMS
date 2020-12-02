@@ -1,5 +1,5 @@
 import React,{ Component } from "react";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,6 +10,7 @@ class NurseList extends Component{
             Nurses:[],
             isLoaded:false
         }
+        this.handlCLick = this.handlCLick.bind(this)
     }
     async componentDidMount(){
         const url="http://localhost:3001/Nurse"
@@ -22,6 +23,11 @@ class NurseList extends Component{
         }
         else
             toast.error('No Data to Display')
+    }
+    handlCLick(arg){
+        if(typeof this.props.editCallBack === 'function'){
+            this.props.editCallBack(arg.target.value)
+        }
     }
     showList(){
         let data = this.state.Nurses
@@ -39,6 +45,7 @@ class NurseList extends Component{
                         <td>{data[index].mob_no}</td>
                         <td>{data[index].email}</td>
                         <td>{date.getFullYear()+'-' + (date.getMonth()+1) + '-'+date.getDate()}</td>
+                        <td><Button className="btn" value={id} onClick={this.handlCLick}>Edit</Button></td>
                     </tr>
                 ) 
             }
@@ -49,7 +56,7 @@ class NurseList extends Component{
         return(
             <div>
                 <ToastContainer position="top-right"
-                    autoClose={5000}
+                    autoClose={2000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
@@ -68,6 +75,7 @@ class NurseList extends Component{
                             <th data-field="phone">Phone</th>
                             <th data-field="Email">Email</th>
                             <th data-field="date">Join Date</th>
+                            <th data-field="edit">Action</th>
                         </tr>
                     </thead>
                     <tbody>{this.showList()}</tbody>

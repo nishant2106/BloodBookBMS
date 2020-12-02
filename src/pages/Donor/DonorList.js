@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table } from "reactstrap";
+import { Button, Table } from "reactstrap";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,7 +12,7 @@ class DonorList extends Component {
         }
     }
     async componentDidMount() {
-        const url = "http://localhost:3000/donors"
+        const url = "http://localhost:3001/donors"
         const response = await fetch(url)
         const data = await response.json()
         if (data.length > 0) {
@@ -23,10 +23,14 @@ class DonorList extends Component {
         else
             toast.error('No Data to Display')
     }
+    handleClick = (arg) => {
+        if (typeof this.props.editCallBack === 'function') {
+            this.props.editCallBack(arg.target.value)
+        }
+    }
     showList() {
         let data = this.state.Donors
         let rows = []
-        console.log(data)
         if (this.state.isLoaded) {
             for (let index = 0; index < data.length; index++) {
                 rows.push(
@@ -38,9 +42,12 @@ class DonorList extends Component {
                         <td>{data[index].blood_grp}</td>
                         <td>{data[index].mob_no}</td>
                         <td>{data[index].gender}</td>
-                        <td>{data[index].address}</td>
-                        <td>{data[index].pincode}</td>
+                        {/* <td>{data[index].address}</td> */}
+                        <td>{data[index].pinCode}</td>
                         <td>{data[index].isPlasmaDonor}</td>
+                        <td>
+                            <Button variant="info" value={data[index].aadhar_no} onClick={this.handleClick}>Edit</Button>
+                        </td>
                     </tr>
                 )
             }
@@ -49,9 +56,9 @@ class DonorList extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="container">
                 <ToastContainer position="top-right"
-                    autoClose={5000}
+                    autoClose={2000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
@@ -70,9 +77,10 @@ class DonorList extends Component {
                             <th data-field="blood_grp">Blood Group</th>
                             <th data-field="phone">Phone_NO</th>
                             <th data-field="gender">Gender</th>
-                            <th data-field="address">Address</th>
+                            {/* <th data-field="address">Address</th> */}
                             <th data-field="pincode">Pincode</th>
                             <th data-field="isPlasmaDonor">IsPlasmaDonor</th>
+                            <th data-field="action">Action</th>
                         </tr>
                     </thead>
                     <tbody>{this.showList()}</tbody>

@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Row, Label, Col, Button, Input, Form, FormGroup } from "reactstrap";
 import http from '../common'
-import Notification, { notify } from "react-notify-toast";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class DonorRegistration extends Component {
     constructor(props) {
         super(props);
@@ -34,17 +36,31 @@ class DonorRegistration extends Component {
         }
         http.post('donors', { newDon })
             .then(response => {
-                console.log(response)
-                notify.show('Donor Registration Successfull', 'success', 300)
+                if(response.status===200){
+                    toast.success('Donor Registration Successfull')
+                    this.props.closeCallBack();
+                }else{
+                    toast.error('Registration Failed')
+                }  
             })
             .catch(error => {
                 console.log(error)
+                toast.error('Donor registraton failed.')
             })
     };
     render() {
         return (
+            <div className="container">
             <div className="row row-content">
-                    <Notification />
+            <ToastContainer position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
                     <div className="col-12 offset-1">
                         <h3>Donor Registration</h3>
                         <hr />
@@ -106,14 +122,14 @@ class DonorRegistration extends Component {
                                     }
                                 }>
                                     <option value="Select">-----Select-----</option>
-                                    <option value="A+">A+</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B-">B-</option>
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
-                                    <option value="O+">O+</option>
-                                    <option value="O-">O-</option>
+                                    <option value="A_pos">A+</option>
+                                    <option value="A_neg">A-</option>
+                                    <option value="B_pos">B+</option>
+                                    <option value="B_neg">B-</option>
+                                    <option value="AB_pos">AB+</option>
+                                    <option value="AB_neg">AB-</option>
+                                    <option value="O_pos">O+</option>
+                                    <option value="O_neg">O-</option>
 
                                 </Input>
                                 </Col>
@@ -253,6 +269,7 @@ class DonorRegistration extends Component {
 
                     </div>
 
+                </div>
                 </div>
                 </div>
         )

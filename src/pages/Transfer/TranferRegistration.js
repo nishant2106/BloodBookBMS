@@ -9,7 +9,6 @@ class TransferRegistration extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // newNurse    : false,
             hid: '',
             reqDate: '',
             qty: '',
@@ -45,9 +44,6 @@ class TransferRegistration extends Component {
         .catch(error=>{
             console.log(error)
         })
-    }
-    handleChange(selectedOption){
-        this.setState({h_id:selectedOption})
     }
     render() {
         let options = this.state.hospitals.map(function (city) {
@@ -98,7 +94,7 @@ class TransferRegistration extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="qty" md={2}>Quantity</Label>
                                 <Col md={10}>
-                                    <Input type="text" id="qty" name="qty"
+                                    <Input type="number" id="qty" name="qty"
                                         placeholder="Quantity in MiliLiters(ml)"
                                         className="form-control"
                                         onChange={
@@ -135,14 +131,14 @@ class TransferRegistration extends Component {
                                     }
                                     }>
                                     <option value="Select">-----Select-----</option>
-                                    <option value="A+">A+</option>
-                                    <option value="A-">A-</option>
-                                    <option value="B+">B+</option>
-                                    <option value="B-">B-</option>
-                                    <option value="AB+">AB+</option>
-                                    <option value="AB-">AB-</option>
-                                    <option value="O+">O+</option>
-                                    <option value="O-">O-</option>
+                                    <option value="A_pos">A+</option>
+                                    <option value="A_neg">A-</option>
+                                    <option value="B_pos">B+</option>
+                                    <option value="B_neg">B-</option>
+                                    <option value="AB_pos">AB+</option>
+                                    <option value="AB_neg">AB-</option>
+                                    <option value="O_pos">O+</option>
+                                    <option value="O_neg">O-</option>
                                 </Input>
                                 </Col>
                             </Row>
