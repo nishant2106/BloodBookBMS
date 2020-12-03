@@ -57,7 +57,6 @@ class DonorLogin extends Component {
       .then(response=>{
         if(response.status===200){
           toast.success('Registration Successfull')
-          this.props.closeCallBack();
         }else{
           toast.error('Registration Unsuccessful.')
         }

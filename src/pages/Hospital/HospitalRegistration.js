@@ -14,31 +14,43 @@ class HospitalRegistration extends Component{
             mob_no_       : '',
             address    : '',
             district    :  '',
-            picode      :  ''
+            pincode      :  ''
         }
     }
     handleSubmit(e){
         e.preventDefault()
-        console.log(this.state)
-        const newHospital={
-            'name': this.state.name,
-            'mob_no_': this.state.mob_no_,
-            'city': this.state.city,
-            'pincode': this.state.pincode,
-            'district': this.state.district
-        }
-        http.post('Hospital',{newHospital})
-        .then(response=>{
-            if(response.status===200){
-            toast.success('Registration Successfull')
-            this.props.closeCallBack();
+        if(this.state.name && this.state.mob_no_ && this.state.district && this.state.city
+            && this.state.pincode){
+            if(this.state.mob_no_.length > 9 && this.state.mob_no_.length <11){
+                if(this.state.pincode.length > 5 && this.state.pincode.length < 7){
+                    const newHospital={
+                        'name': this.state.name,
+                        'mob_no_': this.state.mob_no_,
+                        'city': this.state.city,
+                        'pincode': this.state.pincode,
+                        'district': this.state.district
+                    }
+                    http.post('Hospital',{newHospital})
+                    .then(response=>{
+                        if(response.status===200){
+                        toast.success('Registration Successfull')
+                        this.props.closeCallBack();
+                        }else{
+                            toast.error('Operation Unsuccessful')
+                        }
+                    })
+                    .catch(error=>{
+                        toast.error('Registration Unsuccessful.')
+                    })
+                }else{
+                    toast.error('Pincode field should contain 6 digits.')
+                }
             }else{
-                toast.error('Operation Unsuccessful')
-            }
-        })
-        .catch(error=>{
-            toast.error('Registration Unsuccessful.')
-        })
+                toast.error('Mobile field should contain 10 digits.')
+            } 
+        }else{
+            toast.error('Fill in the details properly.')
+        }
     }
     render(){
         return(
@@ -156,8 +168,8 @@ class HospitalRegistration extends Component{
                                 <Row className="form-group">
                                     <Label htmlFor="pincode" md={2}>Pincode</Label>
                                     <Col md={10}>
-                                        <Input type="number" id="Pincode" name="location"
-                                            placeholder="Enter pin"
+                                        <Input type="number" id="pincode" name="pincode"
+                                            placeholder="Enter Pin Code"
                                             className="form-control"
                                             onChange={
                                                 (e) => {

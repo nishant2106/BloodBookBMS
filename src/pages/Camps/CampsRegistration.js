@@ -9,7 +9,6 @@ class CampsRegistration extends Component{
     constructor(props){
         super(props);
         this.state = {
-            
             name       : '',
             mob       : '',
             address   : '',
@@ -20,27 +19,35 @@ class CampsRegistration extends Component{
 
     handleSubmit(e){
         e.preventDefault()
-        console.log(this.state)
-        const newCamp={
-        'name': this.state.name,
-        'mobile': this.state.mob,
-        'address': this.state.address,
-        'cdate': this.state.cdate,
-        'donationamt':this.state.donationamt
-        }
-        http.post('camps',{newCamp})
-        .then(response => {
-            if(response.status===200){
-                toast.success('Donor Registration Successfull')
-                this.props.closeCallBack();
+        if(this.state.name && this.state.mob && this.state.address && this.state.cdate
+            && this.state.donationamt){
+            if(this.state.mob.length > 9 && this.state.mob.length <11){
+                const newCamp={
+                    'name': this.state.name,
+                    'mobile': this.state.mob,
+                    'address': this.state.address,
+                    'cdate': this.state.cdate,
+                    'donationamt':this.state.donationamt
+                }
+                http.post('camps',{newCamp})
+                .then(response => {
+                    if(response.status===200){
+                        toast.success('Donor Registration Successfull')
+                        this.props.closeCallBack();
+                    }else{
+                        toast.error('Registration Failed')
+                    }  
+                })
+                .catch(error => {
+                    console.log(error)
+                    toast.error('Donor registraton failed.')
+                }) 
             }else{
-                toast.error('Registration Failed')
-            }  
-        })
-        .catch(error => {
-            console.log(error)
-            toast.error('Donor registraton failed.')
-        })
+                toast.error('Mobile field should contain 10 digits.')
+            } 
+        }else{
+            toast.error('Fill in the details properly.')
+        }
     }
 
     render(){

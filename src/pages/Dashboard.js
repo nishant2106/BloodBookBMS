@@ -74,6 +74,7 @@ class DashBoard extends Component{
                         center:'title',
                         right:'dayGridMonth,dayGridWeek,dayGridDay,listWeek'
                     }}
+                    editable="true"
                     dateClick={this.handleDateClick}
                     events={"http://localhost:3001/event"}
                 />

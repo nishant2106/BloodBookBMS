@@ -4,6 +4,7 @@ import http from '../common'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select';
+import ReactFormInputValidation from "react-form-input-validation";
 
 class DonationRegistration extends Component{
     constructor(props){
@@ -37,24 +38,38 @@ class DonationRegistration extends Component{
         })
     }
     handleSubmit(e){
-        e.preventDefault()
-        console.log(this.state)
-        const newDonation={
-        'adhar_no': this.state.adhar_no,
-        'component_name': this.state.component_name,
-        'quantity': this.state.quantity,
-        'nurseid': this.state.nurseid,
-        'd_date': this.state.d_date
-        }
-        http.post('donation',{newDonation})
-        .then(response=>{
-            console.log(response)
-            toast.info('Donation Added.')
-        })
-        .catch(error=>{
-            toast.error('Operation Failed.')
-            console.log(error)
-        })
+        if(this.state.d_date && this.state.nurseid && this.state.quantity && this.state.component_name 
+            && this.state.adhar_no){ 
+            if(this.state.quantity < 201 && this.state.quantity > 149){    
+                e.preventDefault()
+                console.log(this.state)
+                const newDonation={
+                'adhar_no': this.state.adhar_no,
+                'component_name': this.state.component_name,
+                'quantity': this.state.quantity,
+                'nurseid': this.state.nurseid,
+                'd_date': this.state.d_date
+                }
+                http.post('donation',{newDonation})
+                .then(response=>{
+                    if(response.status===200){
+                    console.log(response)
+                    toast.info('Donation Added.')
+                    this.props.closeCallBack();
+                    }else{
+              toast.error('Registration Unsuccessful.')
+                    }
+                })
+                .catch(error=>{
+                    toast.error('Operation Failed.')
+                    console.log(error)
+                })
+            }else{
+                toast.error('Quantity should be between 150 to 200.')
+            }
+        }else{
+            toast.error('Fill all the deatils Properly')
+          }
     }
     render(){
         let options = this.state.donors.map(function (city) {

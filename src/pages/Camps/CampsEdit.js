@@ -57,24 +57,34 @@ class CampsEdit extends Component{
     }
     handleUpdate(){
         if(this.props.nid){
-            http.post('camps/'+this.state.nid, {
-                'name':this.state.name,
-                'cdate':this.state.cdate,
-                'address':this.state.location,
-                'mob':this.state.phone,
-                'donationamt':this.state.donationamt
-            }).then((response) => {
-                if(response.status === 200){
-                    toast.info('Updated register');
-                    this.props.closeCallBack();
+            if(this.state.name && this.state.phone && this.state.location && this.state.cdate
+                && this.state.donationamt){
+                if(this.state.phone.length > 9 && this.state.phone.length < 11){
+                    http.post('camps/'+this.state.nid, {
+                        'name':this.state.name,
+                        'cdate':this.state.cdate,
+                        'address':this.state.location,
+                        'mob':this.state.phone,
+                        'donationamt':this.state.donationamt
+                    }).then((response) => {
+                        if(response.status === 200){
+                            toast.info('Updated register');
+                            this.props.closeCallBack();
+                        }else{
+                            toast.error('unable to Update record');
+                            this.props.closeCallBack();
+                        }
+                        
+                    }).catch((error) => {
+                        toast.error('unable to Update record');
+                    });
                 }else{
-                    toast.error('unable to Update record');
-                    this.props.closeCallBack();
+                toast.error('Mobile field should contain 10 digits.')
                 }
-                
-            }).catch((error) => {
-                console.log('error');
-            });
+            }
+            else{
+                toast.error('Fill in the details properly.')
+            }
         }
     }
     getForm(){

@@ -20,38 +20,12 @@ class NurseRegistration extends Component{
             joinDate    :  ''
         }
     }
-    // checkEmail(emailId){
-    //     if(validator.validate(emailId)){
-            
-    //         http.get('nurse/check_nurse_email',{
-    //             'email' : emailId
-    //         }).then((response) => {
-    //             alert(response.status)
-    //             console.log('dnk,')
-    //             if(response.status === 200){
-    //                 this.setState({ newNurse : false, email : emailId })
-    //                 notify.show('Email already Exists','warning',1000);
-    //             }else{
-    //                 this.setState({ newNurse : true, email : emailId });
-    //                 this.getStyles()
-    //             }
-    //         }).catch((error) => {
-    //             console.log(error);
-    //         }); 
-    //     }else{
-    //         this.setState({ newNurse : false, email : emailId })
-    //     }
-    // }
-    // getStyles(){
-    //     if(this.state.newNurse){
-    //         return vstyle;
-    //     }else{
-    //         return hstyle;
-    //     }
-    // }
     handleSubmit(e){
         e.preventDefault()
-        console.log(this.state)
+        if(this.state.address && this.state.mob && this.state.gender && this.state.joinDate &&
+            this.state.email){
+
+                if(this.state.mob.length > 9 && this.state.mob.length <11){
         const newNurse={
         'name': this.state.name,
         'email': this.state.email,
@@ -68,6 +42,12 @@ class NurseRegistration extends Component{
         .catch(error=>{
             console.log(error)
         })
+    }else{
+        toast.error('Mobile field should contain 10 digits.')
+    }
+    }else{
+        toast.error('Fill in the details properly.')
+    }
     }
     render(){
         return(

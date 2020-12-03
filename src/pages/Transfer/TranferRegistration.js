@@ -38,12 +38,18 @@ class TransferRegistration extends Component {
             'bloodGroup':this.state.blood,
             'status':this.state.status
         })
-        .then(response=>{
-            console.log(response)
+        .then(response => {
+            if(response.status===200){
+                toast.success('Transfer Registration Successfull')
+                this.props.closeCallBack();
+            }else{
+                toast.error('Registration Failed')
+            }  
         })
-        .catch(error=>{
+        .catch(error => {
             console.log(error)
-        })
+            toast.error('Transfer registraton failed.')
+        }) 
     }
     render() {
         let options = this.state.hospitals.map(function (city) {
