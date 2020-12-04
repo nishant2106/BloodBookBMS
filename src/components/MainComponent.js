@@ -45,7 +45,7 @@ class Main extends Component{
                         </div>
                     }/>
                     </EmployeeMain>
-                    <Redirect to="/home" />
+                    <Redirect to="/home"/>
                 </Switch>
                 <Footer/>
             </div>

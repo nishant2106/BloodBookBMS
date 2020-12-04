@@ -39,14 +39,16 @@ class RequestUserList extends Component{
         console.log(data)
         if (this.state.isLoaded) {
             for (let index = 0; index < data.length; index++) {
+                let mail='mailto:'+data[index].email
+                let mob="tel:"+data[index].mob_no
                 rows.push(
                     <tr key={data[index].aadhar_no}>
                         <td>{data[index].aadhar_no}</td>
                         <td>{data[index].name}</td>
-                        <td>{data[index].email}</td>
+                        <td><a href={mail}>{data[index].email}</a></td>
                         <td>{data[index].district}</td>
                         <td>{data[index].blood_grp}</td>
-                        <td>{data[index].mob_no}</td>
+                        <td><a href={mob}>{data[index].mob_no}</a></td>
                         <td>{data[index].gender}</td>
                         <td>{data[index].address}</td>
                         <td>{data[index].pinCode}</td>
@@ -81,14 +83,14 @@ class RequestUserList extends Component{
                 }
             }>
                 <option value="Select">Blood Group</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
+                <option value="A_pos">A+</option>
+                  <option value="A_neg">A-</option>
+                  <option value="B_pos">B+</option>
+                  <option value="B_neg">B-</option>
+                  <option value="AB_pos">AB+</option>
+                  <option value="AB_neg">AB-</option>
+                  <option value="O_pos">O+</option>
+                  <option value="O_neg">O-</option>
 
             </Input>
             </Col>
