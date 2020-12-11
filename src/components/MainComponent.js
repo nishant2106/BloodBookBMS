@@ -29,7 +29,7 @@ class Main extends Component{
                     <Route exact path="/donorreg" component={()=><DonorLogin/>}/>
                     <Route exact path="/contactus" component={()=><Contact/>}/>
                     <Route exact path="/aboutus" component={()=><About/>}/>
-                    
+                    {/* <Redirect to="/home"/> */}
                     <EmployeeMain>
                     <Route component={({ match }) =>
                         <div>
@@ -45,7 +45,6 @@ class Main extends Component{
                         </div>
                     }/>
                     </EmployeeMain>
-                    <Redirect to="/home"/>
                 </Switch>
                 <Footer/>
             </div>
