@@ -1,1 +1,1 @@
-export const baseUrl="http://localhost:3001";
+export const baseUrl = "http://bloodbookserver-production.up.railway.app";
