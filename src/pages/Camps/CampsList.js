@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Button, Table } from "reactstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Axios from "axios";
 
 class CampsList extends Component {
   constructor(props) {
