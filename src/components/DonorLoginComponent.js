@@ -1,149 +1,187 @@
-import React, { Component } from 'react'
-import { FormGroup, Form, Label, Input,  Button, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import React, { Component } from "react";
+import {
+  FormGroup,
+  Form,
+  Label,
+  Input,
+  Button,
+  Breadcrumb,
+  BreadcrumbItem,
+} from "reactstrap";
 import { Link } from "react-router-dom";
-import JumbotronComponent from './JumbotronComponent'
-import http from '../shared/common'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import JumbotronComponent from "./JumbotronComponent";
+import http from "../shared/common";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ReactFormInputValidation from "react-form-input-validation";
 
 class DonorLogin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gender: '',
-      district: '',
-      blood: '',
-      plasma: '',
+      gender: "",
+      district: "",
+      blood: "",
+      plasma: "",
       fields: {
-        aadhar: '',
-        name: '',
-        email: '',
-        mobile: '',
-        address: '',
-        pincode: ''
+        aadhar: "",
+        name: "",
+        email: "",
+        mobile: "",
+        address: "",
+        pincode: "",
       },
-      errors: {}
-    }
+      errors: {},
+    };
     this.form = new ReactFormInputValidation(this);
     this.form.useRules({
-        name: "required",
-        email: "required|email",
-        mobile: "required|numeric|digits_between:10,12",
-        aadhar: "required|numeric|digits_between:12,12",
-        address: 'required',
-        pincode: "required|numeric|digits_between:6,6"
+      name: "required",
+      email: "required|email",
+      mobile: "required|numeric|digits_between:10,12",
+      aadhar: "required|numeric|digits_between:12,12",
+      address: "required",
+      pincode: "required|numeric|digits_between:6,6",
     });
   }
   createDonor(e) {
-    if(this.state.fields.aadhar && this.state.fields.name && this.state.fields.email && 
-      this.state.fields.mobile && this.state.gender && this.state.blood && 
-      this.state.plasma && this.state.fields.address && this.state.district && 
-      this.state.fields.pincode){
-      e.preventDefault()
-      const newDon={
-      'aadhar': this.state.fields.aadhar,
-      'name': this.state.fields.name,
-      'email': this.state.fields.email,
-      'mobile': this.state.fields.mobile,
-      'gender': this.state.gender,
-      'blood': this.state.blood,
-      'plasma': this.state.plasma,
-      'address': this.state.fields.address,
-      'district': this.state.district,
-      'pincode': this.state.fields.pincode
-      }
-      http.post('donors',{newDon})
-      .then(response=>{
-        if(response.status===200){
-          toast.success('Registration Successfull')
-        }else{
-          toast.error('Registration Unsuccessful.')
-        }
-      })
-      .catch(error=>{
-        console.log(error)
-      })
-    }else{
-      toast.error('Fill all the deatils Properly')
+    if (
+      this.state.fields.aadhar &&
+      this.state.fields.name &&
+      this.state.fields.email &&
+      this.state.fields.mobile &&
+      this.state.gender &&
+      this.state.blood &&
+      this.state.plasma &&
+      this.state.fields.address &&
+      this.state.district &&
+      this.state.fields.pincode
+    ) {
+      e.preventDefault();
+      const newDon = {
+        aadhar: this.state.fields.aadhar,
+        name: this.state.fields.name,
+        email: this.state.fields.email,
+        mobile: this.state.fields.mobile,
+        gender: this.state.gender,
+        blood: this.state.blood,
+        plasma: this.state.plasma,
+        address: this.state.fields.address,
+        district: this.state.district,
+        pincode: this.state.fields.pincode,
+      };
+      http
+        .post("donors", { newDon })
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success("Registration Successfull");
+          } else {
+            toast.error("Registration Unsuccessful.");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      toast.error("Fill all the details Properly");
     }
-  };
+  }
 
   render() {
     return (
       <React.Fragment>
-        <ToastContainer position="top-right"
-                    autoClose={2000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <JumbotronComponent />
         <Breadcrumb>
-          <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+          <BreadcrumbItem>
+            <Link to="/home">Home</Link>
+          </BreadcrumbItem>
           <BreadcrumbItem active>Donor's Registration</BreadcrumbItem>
         </Breadcrumb>
         <div className="row row-content">
-
           <div className="col-6 offset-3">
-          <h3>Donor Registration</h3>
-                    <hr/>
-            <Form className="form" >
+            <h3>Donor Registration</h3>
+            <hr />
+            <Form className="form">
               <FormGroup>
                 <Label for="Name">Name</Label>
-                <Input type="text" name="name" id="name"
+                <Input
+                  type="text"
+                  name="name"
+                  id="name"
                   onBlur={this.form.handleBlurEvent}
                   onChange={this.form.handleChangeEvent}
                   value={this.state.fields.name}
-                  placeholder="First Name + Last Name" />
+                  placeholder="First Name + Last Name"
+                />
                 <Label className="error">
                   {this.state.errors.name ? this.state.errors.name : ""}
                 </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="aadhar">Aadhar Number</Label>
-                <Input type="text" name="aadhar" id="aadhar"
+                <Input
+                  type="text"
+                  name="aadhar"
+                  id="aadhar"
                   onBlur={this.form.handleBlurEvent}
                   onChange={this.form.handleChangeEvent}
                   value={this.state.fields.aadhar}
-                  placeholder="Enter Aadhar Number" />
+                  placeholder="Enter Aadhar Number"
+                />
                 <Label className="error">
                   {this.state.errors.aadhar ? this.state.errors.aadhar : ""}
                 </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail"
+                <Input
+                  type="email"
+                  name="email"
+                  id="exampleEmail"
                   onBlur={this.form.handleBlurEvent}
                   onChange={this.form.handleChangeEvent}
                   value={this.state.fields.email}
-                  placeholder="Enter Email Id" />
+                  placeholder="Enter Email Id"
+                />
                 <Label className="error">
                   {this.state.errors.email ? this.state.errors.email : ""}
                 </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="mobile">Mobile Number</Label>
-                <Input type="tel" name="mobile" id="mobile"
+                <Input
+                  type="tel"
+                  name="mobile"
+                  id="mobile"
                   onBlur={this.form.handleBlurEvent}
                   onChange={this.form.handleChangeEvent}
                   value={this.state.fields.mobile}
-                  placeholder="Enter Mobile No" />
+                  placeholder="Enter Mobile No"
+                />
                 <Label className="error">
                   {this.state.errors.mobile ? this.state.errors.mobile : ""}
                 </Label>
               </FormGroup>
               <FormGroup>
                 <Label for="exampleSelect">Blood group</Label>
-                <Input type="select" name="select" id="exampleSelect" 
-                  onChange={
-                    (event) => {
-                      this.setState({ blood: event.target.value });
-                    }
-                  }>
+                <Input
+                  type="select"
+                  name="select"
+                  id="exampleSelect"
+                  onChange={(event) => {
+                    this.setState({ blood: event.target.value });
+                  }}
+                >
                   <option value="Select">-----Select-----</option>
                   <option value="A_pos">A+</option>
                   <option value="A_neg">A-</option>
@@ -153,38 +191,48 @@ class DonorLogin extends Component {
                   <option value="AB_neg">AB-</option>
                   <option value="O_pos">O+</option>
                   <option value="O_neg">O-</option>
-
                 </Input>
               </FormGroup>
               <FormGroup tag="fieldset">
                 <label>Plasma donor</label>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="plasmaDonor" value="Yes" onChange={
-                      (event) => {
+                    <Input
+                      type="radio"
+                      name="plasmaDonor"
+                      value="Yes"
+                      onChange={(event) => {
                         this.setState({ plasma: event.target.value });
-                      }
-                    } />{' '}
-                    YES                </Label>
+                      }}
+                    />{" "}
+                    YES{" "}
+                  </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="plasmaDonor" value="No" onChange={
-                      (event) => {
+                    <Input
+                      type="radio"
+                      name="plasmaDonor"
+                      value="No"
+                      onChange={(event) => {
                         this.setState({ plasma: event.target.value });
-                      }
-                    } />{' '}
-                    NO                </Label>
+                      }}
+                    />{" "}
+                    NO{" "}
+                  </Label>
                 </FormGroup>
-
               </FormGroup>
 
               <FormGroup>
                 <Label for="address">Address</Label>
-                <Input type="textarea" name="address" id="address" 
-                onBlur={this.form.handleBlurEvent}
-                onChange={this.form.handleChangeEvent}
-                value={this.state.fields.address} />
+                <Input
+                  type="textarea"
+                  name="address"
+                  id="address"
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.address}
+                />
                 <Label className="error">
                   {this.state.errors.address ? this.state.errors.address : ""}
                 </Label>
@@ -192,19 +240,21 @@ class DonorLogin extends Component {
 
               <FormGroup>
                 <Label for="exampleDistrict">District</Label>
-                <Input type="select" name="select" id="exampleDistrict" 
-                  onChange={
-                    (event) => {
-                      this.setState({ district: event.target.value });
-                    }
-                  }>
+                <Input
+                  type="select"
+                  name="select"
+                  id="exampleDistrict"
+                  onChange={(event) => {
+                    this.setState({ district: event.target.value });
+                  }}
+                >
                   <option value="Select">-----Select-----</option>
-                  <option value="Ahmednagar">    Ahmednagar </option>
+                  <option value="Ahmednagar"> Ahmednagar </option>
                   <option value="Akola">Akola</option>
                   <option value="Amravati">Amravati</option>
                   <option value=" Aurangabad"> Aurangabad</option>
                   <option value=" Beed"> Beed</option>
-                  <option value="  Bhandara">  Bhandara</option>
+                  <option value="  Bhandara"> Bhandara</option>
                   <option value="Buldhana">Buldhana</option>
                   <option value="Chandrapur">Chandrapur</option>
                   <option value="Dhule">Dhule</option>
@@ -238,16 +288,19 @@ class DonorLogin extends Component {
                   <option value="Wardha">Wardha</option>
                   <option value="Washim">Washim</option>
                   <option value="Yavatmal"> Yavatmal</option>
-
                 </Input>
               </FormGroup>
 
               <FormGroup>
                 <Label for="pincode">Pincode</Label>
-                <Input type="number" name="pincode" id="pincode" 
-                onBlur={this.form.handleBlurEvent}
-                onChange={this.form.handleChangeEvent}
-                value={this.state.fields.pincode} />
+                <Input
+                  type="number"
+                  name="pincode"
+                  id="pincode"
+                  onBlur={this.form.handleBlurEvent}
+                  onChange={this.form.handleChangeEvent}
+                  value={this.state.fields.pincode}
+                />
                 <Label className="error">
                   {this.state.errors.pincode ? this.state.errors.pincode : ""}
                 </Label>
@@ -257,44 +310,58 @@ class DonorLogin extends Component {
                 <legend>Gender</legend>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="genderSelect" value="Female" onChange={
-                      (event) => {
+                    <Input
+                      type="radio"
+                      name="genderSelect"
+                      value="Female"
+                      onChange={(event) => {
                         this.setState({ gender: event.target.value });
-                      }
-                    } />{' '}
-
-                  Female
-                </Label>
+                      }}
+                    />{" "}
+                    Female
+                  </Label>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="genderSelect" value="Male" onChange={
-                      (event) => {
+                    <Input
+                      type="radio"
+                      name="genderSelect"
+                      value="Male"
+                      onChange={(event) => {
                         this.setState({ gender: event.target.value });
-                      }
-                    } />{' '}
-                    Male                </Label>
+                      }}
+                    />{" "}
+                    Male{" "}
+                  </Label>
                 </FormGroup>
-                <FormGroup check >
+                <FormGroup check>
                   <Label check>
-                    <Input type="radio" name="genderSelect" value="Other" onChange={
-                      (event) => {
+                    <Input
+                      type="radio"
+                      name="genderSelect"
+                      value="Other"
+                      onChange={(event) => {
                         this.setState({ gender: event.target.value });
-                      }
-                    } />{' '}
-                other                </Label>
+                      }}
+                    />{" "}
+                    other{" "}
+                  </Label>
                 </FormGroup>
               </FormGroup>
 
               <br></br>
-              <Button onClick={(event) => { this.createDonor(event) }}>Submit</Button>
+              <Button
+                onClick={(event) => {
+                  this.createDonor(event);
+                }}
+              >
+                Submit
+              </Button>
             </Form>
-
           </div>
-
         </div>
       </React.Fragment>
-    )
+    );
   }
 }
 export default DonorLogin;
