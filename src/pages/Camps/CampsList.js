@@ -12,7 +12,7 @@ class CampsList extends Component {
     };
   }
   async componentDidMount() {
-    const url = "http://bloodbookserver-production.up.railway.app/Camps";
+    const url = "https://bloodbookserver.onrender.com/Camps";
     const response = await fetch(url);
 
     const data = await response.json();

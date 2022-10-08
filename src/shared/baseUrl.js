@@ -1,1 +1,1 @@
-export const baseUrl = "http://bloodbookserver-production.up.railway.app";
+export const baseUrl = "https://bloodbookserver.onrender.com";

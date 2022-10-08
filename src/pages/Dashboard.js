@@ -86,7 +86,7 @@ class DashBoard extends Component {
           }}
           editable="true"
           dateClick={this.handleDateClick}
-          events={"http://bloodbookserver-production.up.railway.app/event"}
+          events={"https://bloodbookserver.onrender.com/event"}
         />
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Create New Event</ModalHeader>

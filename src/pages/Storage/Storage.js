@@ -12,7 +12,7 @@ class Storage extends Component {
     };
   }
   async componentDidMount() {
-    const url = "http://bloodbookserver-production.up.railway.app/Storage";
+    const url = "https://bloodbookserver.onrender.com/Storage";
     const response = await fetch(url);
     const data = await response.json();
     if (data.length > 0) {

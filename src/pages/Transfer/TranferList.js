@@ -12,7 +12,7 @@ class TransferList extends Component {
     };
   }
   async componentDidMount() {
-    const url = "http://bloodbookserver-production.up.railway.app/transfer";
+    const url = "https://bloodbookserver.onrender.com/transfer";
     const response = await fetch(url);
     const data = await response.json();
     if (data.length > 0) {

@@ -12,7 +12,7 @@ class HospitalList extends Component {
     };
   }
   async componentDidMount() {
-    const url = "http://bloodbookserver-production.up.railway.app/hospital";
+    const url = "https://bloodbookserver.onrender.com/hospital";
     const response = await fetch(url);
     const data = await response.json();
     if (data.length > 0) {

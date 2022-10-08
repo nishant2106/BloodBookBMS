@@ -13,7 +13,7 @@ class DonationList extends Component {
   }
   async componentDidMount() {
     try {
-      const url = "http://bloodbookserver-production.up.railway.app/Donation";
+      const url = "https://bloodbookserver.onrender.com/Donation";
       const response = await fetch(url);
       console.log(response);
       const data = await response.json();

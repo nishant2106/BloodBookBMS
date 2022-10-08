@@ -12,7 +12,7 @@ class DonorList extends Component {
     };
   }
   async componentDidMount() {
-    const url = "http://bloodbookserver-production.up.railway.app/donors";
+    const url = "https://bloodbookserver.onrender.com/donors";
     const response = await fetch(url);
     const data = await response.json();
     if (data.length > 0) {

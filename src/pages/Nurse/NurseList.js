@@ -13,7 +13,7 @@ class NurseList extends Component {
     this.handlCLick = this.handlCLick.bind(this);
   }
   async componentDidMount() {
-    const url = "http://bloodbookserver-production.up.railway.app/Nurse";
+    const url = "https://bloodbookserver.onrender.com/Nurse";
     const response = await fetch(url);
     const data = await response.json();
     if (data.length > 0) {

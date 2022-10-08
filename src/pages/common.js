@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://bloodbookserver-production.up.railway.app/",
+  baseURL: "https://bloodbookserver.onrender.com/",
   headers: {
     "Content-type": "application/json",
   },
